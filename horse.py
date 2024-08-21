@@ -1,5 +1,8 @@
 import disnake, random
 from disnake.ext import commands
+
+bot = commands.Bot(command_prefix="&")
+
 @bot.slash_command(name="경마", description="경마 도박을 하여 돈을 얻거나 잃습니다.")
 async def 경마(interaction: disnake.ApplicationCommandInteraction, 금액: int = commands.Param(description="베팅할 금액"), 말 = commands.Param(choices=["말1", "말2", "말3", "말4"], description="선택할 말")):
     balance = get_balance("game", interaction.author.id)
@@ -46,3 +49,5 @@ async def 경마(interaction: disnake.ApplicationCommandInteraction, 금액: int
         result_embed = embeds("경마 결과", f"{interaction.author.mention}님, {horse_emoji} {chosen_horse}를 선택하여 {금액}원을 잃었습니다.\n현재 잔액: {balance - 금액}원\n{result_message}")
     
     await message.edit(embed=result_embed)
+
+bot.run("봇 토큰")
